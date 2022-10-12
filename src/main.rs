@@ -1,3 +1,8 @@
+struct Square<T> -> <T> {
+
+}
+
+
 fn main() {
     let square = Square::<u32>::new(5);
     let square_float = Square::<f64>::new(5.4);
