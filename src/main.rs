@@ -14,3 +14,131 @@ fn main() {
     println!("pyramid_square volume is {}", pyramid_square.volume());
     println!("pyramid_triangle volume is {}", pyramid_triangle.volume());
 }
+
+
+//Square
+struct Square<New> 
+{
+    side: New,
+}
+
+impl Square<u32> {
+    fn new( t: u32) -> Self {
+        Square { side : t}
+    }
+}
+
+impl Square<f64> {
+    fn new( t: f64) -> Self {
+        Square { side : t}
+    }
+}
+
+impl Square<String> {
+    fn new( t: &str) -> Self {
+        Square { side : t.to_string()}
+    }
+}
+
+trait Area {
+    fn area(&self) -> f64;
+}
+
+impl Area for Square<u32> {
+    fn area(&self) -> f64 {
+        (self.side * self.side).into()
+    }
+}
+
+impl Area for Square<f64> {
+    fn area(&self) -> f64 {
+        self.side * self.side
+    }
+}
+
+impl Area for Square<String> {
+    fn area(&self) -> f64 {
+        self.side.parse::<f64>().unwrap() * self.side.parse::<f64>().unwrap()
+    }
+}
+
+//Triangle
+
+struct Triangle<T> 
+{
+    base: T,
+    hight: T,
+
+}
+
+impl Triangle<f64> {
+    fn new( b: f64, h: f64) -> Self {
+        Triangle {base: b, hight: h} 
+    }
+}
+
+impl Area for Triangle<f64> {
+    fn area(&self) -> f64 {
+        self.base * self.hight / 2.0
+    }
+}
+
+// Pyramide
+
+struct Pyramid<Type, Hight> 
+{
+    type_pyramid: Type,
+    hight: Hight,
+
+}
+
+impl Pyramid<Square<u32>, f64> {
+    fn new( t: Square<u32>, h: f64) -> Self {
+        Pyramid { type_pyramid: t, hight: h}
+    }
+}
+
+impl Pyramid<Triangle<f64>, f64> {
+    fn new( t: Triangle<f64>, h: f64) -> Self {
+        Pyramid { type_pyramid: t, hight: h}
+    }
+}
+
+trait Volume {
+    fn volume(&self) -> f64;
+}
+
+impl Volume for Pyramid<Square<u32>, f64> {
+    fn volume(&self) -> f64 {
+        self.type_pyramid.area() * self.hight / 3.0
+    }
+}
+
+impl Volume for Pyramid<Triangle<f64>, f64> {
+    fn volume(&self) -> f64 {
+        self.type_pyramid.area() * self.hight / 3.0
+    }
+}
+
+/*
+trait Area {
+    fn area(&self) -> f64;
+}
+
+impl Area for Square<u32> {
+    fn area(&self) -> f64 {
+        (self.side * self.side).into()
+    }
+}
+
+impl Area for Square<f64> {
+    fn area(&self) -> f64 {
+        self.side * self.side
+    }
+}
+
+impl Area for Square<String> {
+    fn area(&self) -> f64 {
+        self.side.parse::<f64>().unwrap() * self.side.parse::<f64>().unwrap()
+    }
+}*/
