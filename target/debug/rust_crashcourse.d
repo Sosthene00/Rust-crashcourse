@@ -1,0 +1,1 @@
+C:\Users\Lucas\ Kaczmarski\OneDrive\ -\ De\ Vinci\Documents\Esilv\A4\Rust\ Programming\CrashCourse\Rust-crashcourse\target\debug\rust_crashcourse.exe: C:\Users\Lucas\ Kaczmarski\OneDrive\ -\ De\ Vinci\Documents\Esilv\A4\Rust\ Programming\CrashCourse\Rust-crashcourse\src\main.rs
