@@ -74,12 +74,23 @@ impl Volume<f64> for Pyramid<Square<u32>, f64>{
     }
 }
 
+impl Volume<f64> for Pyramid<Triangle<f64>, f64>{
+    fn volume(&self) -> f64{ 
+        (self.height/3.0)*(self.base.area()) as f64
+    }
+}
+
 impl Pyramid<Square<u32>, f64> {
     fn new(b: Square<u32>, h: f64) -> Self {
         Pyramid { base: b, height: h }
     }
 }
 
+impl Pyramid<Triangle<f64>, f64> {
+    fn new(b: Triangle<f64>, h: f64) -> Self {
+        Pyramid { base: b, height: h }
+    }
+}
 
 fn main() {
     let square = Square::<u32>::new(5);
@@ -94,10 +105,10 @@ fn main() {
     println!("triangle area is {}", triangle.area());
     
     let pyramid_square = Pyramid::<Square<u32>, f64>::new(square, 24.3);
-    //let pyramid_triangle = Pyramid::<Triangle<f64>, f64>::new(triangle, 24.3);
+    let pyramid_triangle = Pyramid::<Triangle<f64>, f64>::new(triangle, 24.3);
 
     println!("pyramid_square volume is {}", pyramid_square.volume());
-    //println!("pyramid_triangle volume is {}", pyramid_triangle.volume());
+    println!("pyramid_triangle volume is {}", pyramid_triangle.volume());
     
 }
 
