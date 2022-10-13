@@ -51,6 +51,12 @@ fn main() {
         }
     }
 
+    impl Volume<f64> for Pyramid<Triangle<f64, f64>, f64> {
+        fn volume(&self) -> f64 {
+            (self.base.area() / 3.0) * self.height
+        }
+    }
+
     impl Square<u32> {
         fn new(t: u32) -> Self {
             Square { x: t }
@@ -81,20 +87,28 @@ fn main() {
         }
     }
 
-    let square = Square::<u32>::new(5);
-    let square_float = Square::<f64>::new(5.4);
-    let square_string: Square<String> = Square::<String>::new("6");
+    impl Pyramid<Triangle<f64, f64>, f64> {
+        fn new(x: Triangle<f64, f64>, y: f64) -> Self {
+            Pyramid { base: x, height: y }
+        }
+    }
 
+    let square = Square::<u32>::new(5);
     println!("square area is {}", square.area());
+
+    let square_float = Square::<f64>::new(5.4);
     println!("square_float area is {}", square_float.area());
 
+    let square_string: Square<String> = Square::<String>::new("6");
     println!("square_string area is {}", square_string.area());
 
     let triangle = Triangle::new(14.9, 20.1);
-    let pyramid_square = Pyramid::<Square<u32>, f64>::new(square, 24.3);
-    //let pyramid_triangle = Pyramid::<Triangle<f64>, f64>::new(triangle, 24.3);
-
     println!("triangle area is {}", triangle.area());
+
+    let pyramid_square = Pyramid::<Square<u32>, f64>::new(square, 24.3);
     println!("pyramid_square volume is {}", pyramid_square.volume());
-    //println!("pyramid_triangle volume is {}", pyramid_triangle.volume());
+
+    let pyramid_triangle = Pyramid::<Triangle<f64, f64>, f64>::new(triangle, 24.3);
+
+    println!("pyramid_triangle volume is {}", pyramid_triangle.volume());
 }
