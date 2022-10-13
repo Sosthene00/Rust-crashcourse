@@ -19,7 +19,8 @@ impl MesurableArea for Shape2D {
 }
 
 pub enum Shape3D {
-    Pyramid(Shape2D, f64)
+    Pyramid(Shape2D, f64),
+    Sphere(f64)
 }
 
 pub trait MesurableVolume {
@@ -30,6 +31,7 @@ impl MesurableVolume for Shape3D {
     fn volume(&self) -> f64 {
         match &self {
             Shape3D::Pyramid(shape2d, h) => { (shape2d.area() * h) / 3.0 }
+            Shape3D::Sphere(radius)=>{(4.0*std::f64::consts::PI*radius.powf(3.0))/3.0}
         }
     }
 }

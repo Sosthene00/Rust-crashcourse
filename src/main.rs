@@ -12,10 +12,12 @@ fn main() {
     let pyramid_square = Shape3D::Pyramid(square,7.0);
     let pyramid_triangle= Shape3D::Pyramid(triangle,6.0);
     let cone=Shape3D::Pyramid(circle,7.0);
+    let sphere=Shape3D::Sphere(5.0);
 
     println!("pyramid_square volume is {}", pyramid_square.volume());
     println!("pyramid_triangle volume is {}", pyramid_triangle.volume());
     println!("cone volume is {}", cone.volume());
+    println!("sphere volume is {}", sphere.volume());
 
 
     /*let square = Square::<u32>::new(5);
