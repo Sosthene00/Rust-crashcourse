@@ -1,3 +1,4 @@
+#[derive(Debug, Copy, Clone)]
 pub enum Shape2D {
     Square(f64),
     Triangle(f64, f64),
@@ -6,6 +7,7 @@ pub enum Shape2D {
 
 pub trait MesurableArea {
     fn area(&self) -> f64;
+    fn get_pyramid(&self,height: f64) -> Shape3D;
 }
 
 impl MesurableArea for Shape2D {
@@ -15,6 +17,10 @@ impl MesurableArea for Shape2D {
             Shape2D::Triangle(x, y) => { (x * y) / 2.0 }
             Shape2D::Circle(radius) => {radius.powf(2.0)*std::f64::consts::PI}
         }
+    }
+
+    fn get_pyramid(&self, height:f64) -> Shape3D{
+        Shape3D::Pyramid(*self, height)
     }
 }
 
@@ -35,6 +41,8 @@ impl MesurableVolume for Shape3D {
         }
     }
 }
+
+
 
 
 

@@ -14,10 +14,13 @@ fn main() {
     let cone=Shape3D::Pyramid(circle,7.0);
     let sphere=Shape3D::Sphere(5.0);
 
+    let pyramidfrom2d=triangle.get_pyramid(6.0);
+
     println!("pyramid_square volume is {}", pyramid_square.volume());
     println!("pyramid_triangle volume is {}", pyramid_triangle.volume());
     println!("cone volume is {}", cone.volume());
     println!("sphere volume is {}", sphere.volume());
+    println!("pyramid from 2D volume is {}", pyramidfrom2d.volume());
 
 
     /*let square = Square::<u32>::new(5);
