@@ -26,16 +26,14 @@ impl Square<u32> {
     fn new( t: u32) -> Self {
         Square { side : t}
     }
-
 }
 
 impl Square<String> {
     fn new( t: &str) -> Self {
         let float : f64;
         float = t.parse().unwrap();
-        Square { side : (float).to_string(),
+        Square { side : (float).to_string()}
     }
-}
 }
 
 impl Triangle<f64> 
