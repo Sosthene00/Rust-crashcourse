@@ -57,6 +57,15 @@ fn main() {
         }
     }
 
+    impl Square {
+        fn new<T>(l:T) -> Self
+        where
+            T: Try_into<f64>,
+        {
+            Self {length: l.try_into().unwrap_or(0,0)}
+        }
+    }
+
     impl Square<u32> {
         fn new(t: u32) -> Self {
             Square { x: t }
@@ -72,6 +81,19 @@ fn main() {
     impl Square<String> {
         fn new(t: &str) -> Self {
             Square { x: t.to_owned() }
+        }
+    }
+
+    impl Triangle {
+        fn new<T>(a: T, b:T, c:T) -> Self
+        where
+            T: TryInto<f64>,
+        {
+            Self {
+                a: a.try_into().unwrap_or(0,0),
+                b: b.try_into().unwrap_or(0,0),
+                c: c.try_into().unwrap_or(0,0),
+            }
         }
     }
 
