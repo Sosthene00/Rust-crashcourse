@@ -109,6 +109,5 @@ fn main() {
     println!("pyramid_square volume is {}", pyramid_square.volume());
 
     let pyramid_triangle = Pyramid::<Triangle<f64, f64>, f64>::new(triangle, 24.3);
-
     println!("pyramid_triangle volume is {}", pyramid_triangle.volume());
 }
