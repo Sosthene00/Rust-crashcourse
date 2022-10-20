@@ -106,11 +106,6 @@ fn main() {
     let square = Square::<u32>::new(5);
     let square_float = Square::<f64>::new(5.4);
     let square_string = Square::<String>::new("6");
-
-    println!("square area is {}", square.side);
-    println!("square_float area is {}", square_float.side);
-    println!("square_string area is {}", square_string.side);
-
     
     println!("square area is {}", square.area());
     println!("square_float area is {}", square_float.area());
