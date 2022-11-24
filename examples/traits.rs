@@ -1,92 +1,72 @@
-trait Area {
+use std::str::FromStr;
+
+trait Area{
     fn area(&self) -> f64;
 }
 
-trait Volume {
-    fn volume(&self) -> f64;
-}
-
 struct Square{
-    length: f64,
+    side : f64,
 }
 
 impl Square {
-    fn new<T>(l:T) -> Self 
-    where
-        T: TryInto<f64>,
+    fn new<T : TryInto<f64>>(param : T ) -> Self
     {
-        Self {length: l.try_into().unwrap_or(0.0)}
+        let _side = param.try_into().unwrap_or(0.0);
+        return Square{ side: _side, };
     }
 }
 
-impl Area for Square {
-    fn area(&self) -> f64 {
-        &self.length * &self.length
+impl Area for Square{
+    fn area(&self) -> f64{
+        return self.side * self.side;
     }
 }
-
-struct Triangle {
-    a: f64,
-    b: f64,
-    c: f64,
+struct Triangle{
+    a : f64,
+    b : f64,
+    c : f64
 }
 
 impl Triangle {
-    fn new<T>(a:T, b:T, c:T) -> Self 
-    where
-        T: TryInto<f64>,
-    {
-        Self {
-            a: a.try_into().unwrap_or(0.0),
-            b: b.try_into().unwrap_or(0.0),
-            c: c.try_into().unwrap_or(0.0),
-        }
+    fn new<T : TryInto<f64>>(_a : T,_b : T,_c : T) -> Self { 
+        return Triangle{a: _a.try_into().unwrap_or(0.0), b: _b.try_into().unwrap_or(0.0), c: _c.try_into().unwrap_or(0.0) };
     }
 }
-
-impl Area for Triangle {
-    fn area(&self) -> f64 {
-        let (a, b, c) = (&self.a, &self.b, &self.c);
-        let perimeter = a + b + c;
-        let s = perimeter / 2.0;
-        (s*(s-a)*(s-b)*(s-c)).sqrt()
+ impl Area for Triangle{
+    fn area(&self) -> f64{
+        let s = (self.a+self.b+self.c) / 2.0;
+        return ( s*(s-self.a)*(s-self.b)*(s-self.c) ).sqrt();
     }
-}
+ }
 
-struct Pyramid<T: Area> {
-    base: T,
-    height: f64,
-}
+#[derive(Clone,Copy)]
+struct Pyramid<T,Y>{
+    base : T,
+    height : Y,
 
-impl<T: Area> Pyramid<T> {
-    fn new<U>(b:T, h:U) -> Self 
-    where
-        U: TryInto<f64>
-    {
-        Self { base: b, height: h.try_into().unwrap_or(0.0) }
+}
+impl<T : Area,Y : TryInto<f64>+Copy> Pyramid<T,Y>{
+    fn new(s : T, h : Y) -> Self {
+        return Pyramid { base: s, height: h }
     }
-}
-
-impl<T: Area> Volume for Pyramid<T> {
-    fn volume(&self) -> f64 {
-        let area = self.base.area();
-        area * self.height
+    fn volume(&self) -> f64{
+        let x : f64  = self.base.area();
+        let h : f64 = self.height.try_into().unwrap_or(0.0);
+        return x*h;
     }
 }
 
 fn main() {
-    let square = Square::new(5);
-    let square_float = Square::new(5.4);
-    let square_string = Square::new("6".parse::<f64>().unwrap());
+    let square = Square::new::<u32>(5);
+    let square_float = Square::new::<f64>(5.4);
 
-    println!("square area is {:.2}", square.area());
-    println!("square_float area is {:.2}", square_float.area());
-    println!("square_string area is {:.2}", square_string.area());
+    println!("square area is {}", square.area());
+    println!("square_float area is {}", square_float.area());
 
-    let triangle = Triangle::new(14.9, 20.1, 9.7);
-    let pyramid_square = Pyramid::new(square, 24.3);
-    let pyramid_triangle = Pyramid::new(triangle, 24.3);
+    let triangle = Triangle::new(14.9, 20.1, 16.0);
+    let pyramid_square = Pyramid::<Square, f64>::new(square, 24.3);
+    let pyramid_triangle = Pyramid::<Triangle, f64>::new(triangle, 24.3);
 
-    println!("pyramid_square volume is {:.2}", pyramid_square.volume());
-    println!("pyramid_triangle volume is {:.2}", pyramid_triangle.volume());
+    println!("pyramid_square volume is {}", pyramid_square.volume());
+    println!("pyramid_triangle volume is {}", pyramid_triangle.volume());
 }
